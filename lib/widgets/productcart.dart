@@ -9,9 +9,7 @@ class _HomeScreenState extends State<HomeScreen> {
   List<String> cartItems = [];
 
   void addToCart(String product) {
-    setState(() {
-      cartItems.add(product);
-    });
+    setState(() => cartItems.add(product));
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(content: Text("Added $product to cart")),
     );
@@ -26,27 +24,17 @@ class _HomeScreenState extends State<HomeScreen> {
           IconButton(onPressed: () {}, icon: Icon(Icons.notifications)),
           Stack(
             children: [
-              IconButton(
-                onPressed: () {},
-                icon: Icon(Icons.shopping_cart),
-              ),
+              IconButton(onPressed: () {}, icon: Icon(Icons.shopping_cart)),
               if (cartItems.isNotEmpty)
                 Positioned(
                   right: 6,
                   top: 6,
-                  child: Container(
-                    padding: EdgeInsets.all(6),
-                    decoration: BoxDecoration(
-                      color: Colors.red,
-                      shape: BoxShape.circle,
-                    ),
+                  child: CircleAvatar(
+                    radius: 10,
+                    backgroundColor: Colors.red,
                     child: Text(
                       cartItems.length.toString(),
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 12,
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: TextStyle(color: Colors.white, fontSize: 12),
                     ),
                   ),
                 ),
@@ -61,11 +49,10 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             TextField(
               decoration: InputDecoration(
-                hintText: "Search Product Name",
+                hintText: "Search Product",
                 prefixIcon: Icon(Icons.search),
                 border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
+                    borderRadius: BorderRadius.circular(10)),
               ),
             ),
             SizedBox(height: 16),
@@ -82,28 +69,21 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 itemCount: 2,
                 itemBuilder: (context, index) {
-                  String product =
-                      index == 0 ? "TMA-2 HD Wireless" : "TMA-2 HD Earphones";
-                  return Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Colors.white,
-                      // ignore: deprecated_member_use
-                      boxShadow: [
-                        BoxShadow(
-                            // ignore: deprecated_member_use
-                            color: newMethod(),
-                            blurRadius: 5)
-                      ],
-                    ),
+                  List<Map<String, String>> products = [
+                    {"name": "TMA-2 HD Wireless", "image": "headphones.png"},
+                    {"name": "TMA-2 HD Earphones", "image": "earphones.png"}
+                  ];
+                  var product = products[index];
+
+                  return Card(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10)),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Expanded(
                           child: Image.asset(
-                            index == 0
-                                ? 'assets/images/headphones.png'
-                                : 'assets/images/earphones.png',
+                            'assets/images/${product["image"]}',
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -112,9 +92,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(product,
-                                  style:
-                                      TextStyle(fontWeight: FontWeight.bold)),
+                              Text(product["name"]!,
+                                  style: TextStyle(fontWeight: FontWeight.bold)),
                               Text("Rp. 1.500.000",
                                   style: TextStyle(color: Colors.red)),
                               Row(
@@ -126,7 +105,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                               SizedBox(height: 8),
                               ElevatedButton(
-                                onPressed: () => addToCart(product),
+                                onPressed: () => addToCart(product["name"]!),
                                 child: Text("Add to Cart"),
                               ),
                             ],
@@ -143,7 +122,4 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
-
-  // ignore: deprecated_member_use
-  Color newMethod() => Colors.grey.withOpacity(0.2);
 }
