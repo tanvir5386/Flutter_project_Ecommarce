@@ -69,7 +69,8 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             SizedBox(height: 16),
-            Text("Featured Products", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+            Text("Featured Products",
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
             SizedBox(height: 8),
             Expanded(
               child: GridView.builder(
@@ -81,19 +82,28 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 itemCount: 2,
                 itemBuilder: (context, index) {
-                  String product = index == 0 ? "TMA-2 HD Wireless" : "TMA-2 HD Earphones";
+                  String product =
+                      index == 0 ? "TMA-2 HD Wireless" : "TMA-2 HD Earphones";
                   return Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
                       color: Colors.white,
-                      boxShadow: [BoxShadow(color: Colors.grey.withOpacity(0.2), blurRadius: 5)],
+                      // ignore: deprecated_member_use
+                      boxShadow: [
+                        BoxShadow(
+                            // ignore: deprecated_member_use
+                            color: newMethod(),
+                            blurRadius: 5)
+                      ],
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Expanded(
                           child: Image.asset(
-                            index == 0 ? 'assets/images/headphones.png' : 'assets/images/earphones.png',
+                            index == 0
+                                ? 'assets/images/headphones.png'
+                                : 'assets/images/earphones.png',
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -102,11 +112,15 @@ class _HomeScreenState extends State<HomeScreen> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(product, style: TextStyle(fontWeight: FontWeight.bold)),
-                              Text("Rp. 1.500.000", style: TextStyle(color: Colors.red)),
+                              Text(product,
+                                  style:
+                                      TextStyle(fontWeight: FontWeight.bold)),
+                              Text("Rp. 1.500.000",
+                                  style: TextStyle(color: Colors.red)),
                               Row(
                                 children: [
-                                  Icon(Icons.star, color: Colors.orange, size: 16),
+                                  Icon(Icons.star,
+                                      color: Colors.orange, size: 16),
                                   Text(" 4.6 (86 Reviews)")
                                 ],
                               ),
@@ -129,4 +143,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
+
+  // ignore: deprecated_member_use
+  Color newMethod() => Colors.grey.withOpacity(0.2);
 }
