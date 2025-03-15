@@ -33,7 +33,6 @@ class Home extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            
             TextField(
               decoration: InputDecoration(
                 hintText: "Search Product",
@@ -44,15 +43,11 @@ class Home extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 16),
-
-            
             const Text(
               "Featured Products",
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 8),
-
-            
             Expanded(
               child: GridView.builder(
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -61,7 +56,7 @@ class Home extends StatelessWidget {
                   mainAxisSpacing: 10,
                   childAspectRatio: 0.75,
                 ),
-                itemCount: 2, // পণ্যের সংখ্যা
+                itemCount: 2,
                 itemBuilder: (context, index) {
                   List<Map<String, String>> products = [
                     {"name": "TMA-2 HD Wireless", "image": "headphones.png"},
@@ -78,7 +73,7 @@ class Home extends StatelessWidget {
                       children: [
                         Expanded(
                           child: Image.asset(
-                            'assets/images/${product["image"]}',
+                            'fonts/image/earphones.png',
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -89,7 +84,8 @@ class Home extends StatelessWidget {
                             children: [
                               Text(
                                 product["name"]!,
-                                style: const TextStyle(fontWeight: FontWeight.bold),
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold),
                               ),
                               const Text(
                                 "Rp. 1.500.000",
@@ -97,7 +93,8 @@ class Home extends StatelessWidget {
                               ),
                               Row(
                                 children: const [
-                                  Icon(Icons.star, color: Colors.orange, size: 16),
+                                  Icon(Icons.star,
+                                      color: Colors.orange, size: 16),
                                   Text(" 4.6 (86 Reviews)"),
                                 ],
                               ),
