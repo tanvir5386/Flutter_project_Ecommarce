@@ -88,7 +88,7 @@ class Home extends StatelessWidget {
                                     fontWeight: FontWeight.bold),
                               ),
                               const Text(
-                                "Rp. 1.500.000",
+                                "Taka 1.500.000",
                                 style: TextStyle(color: Colors.red),
                               ),
                               Row(
