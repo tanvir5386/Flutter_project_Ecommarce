@@ -1,22 +1,130 @@
-import 'package:ecommerce_tan/common/appBar.dart';
 import 'package:flutter/material.dart';
-import '../../utils/constants/colors.dart';
 
-class Home extends StatelessWidget {
-  const Home({super.key});
+class HomeScreen extends StatefulWidget {
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  List<String> cartItems = [];
+
+  void addToCart(String product) {
+    setState(() {
+      cartItems.add(product);
+    });
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text("Added $product to cart")),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: FAppbar(
-        title: "Mega Shop",
-        left: const Icon(Icons.notifications),
-        right: const Icon(Icons.shopping_cart),
+      appBar: AppBar(
+        title: Text("Mega Mall"),
+        actions: [
+          IconButton(onPressed: () {}, icon: Icon(Icons.notifications)),
+          Stack(
+            children: [
+              IconButton(
+                onPressed: () {},
+                icon: Icon(Icons.shopping_cart),
+              ),
+              if (cartItems.isNotEmpty)
+                Positioned(
+                  right: 6,
+                  top: 6,
+                  child: Container(
+                    padding: EdgeInsets.all(6),
+                    decoration: BoxDecoration(
+                      color: Colors.red,
+                      shape: BoxShape.circle,
+                    ),
+                    child: Text(
+                      cartItems.length.toString(),
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+            ],
+          ),
+        ],
       ),
-      body: Center(
-        child: Text(
-          "Welcome to Mega Shop!",
-          style: TextStyle(fontSize: 24, color: FColors.oceanBlue),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            TextField(
+              decoration: InputDecoration(
+                hintText: "Search Product Name",
+                prefixIcon: Icon(Icons.search),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+            ),
+            SizedBox(height: 16),
+            Text("Featured Products", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+            SizedBox(height: 8),
+            Expanded(
+              child: GridView.builder(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 10,
+                  childAspectRatio: 0.7,
+                ),
+                itemCount: 2,
+                itemBuilder: (context, index) {
+                  String product = index == 0 ? "TMA-2 HD Wireless" : "TMA-2 HD Earphones";
+                  return Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.white,
+                      boxShadow: [BoxShadow(color: Colors.grey.withOpacity(0.2), blurRadius: 5)],
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          child: Image.asset(
+                            index == 0 ? 'assets/images/headphones.png' : 'assets/images/earphones.png',
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(product, style: TextStyle(fontWeight: FontWeight.bold)),
+                              Text("Rp. 1.500.000", style: TextStyle(color: Colors.red)),
+                              Row(
+                                children: [
+                                  Icon(Icons.star, color: Colors.orange, size: 16),
+                                  Text(" 4.6 (86 Reviews)")
+                                ],
+                              ),
+                              SizedBox(height: 8),
+                              ElevatedButton(
+                                onPressed: () => addToCart(product),
+                                child: Text("Add to Cart"),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              ),
+            ),
+          ],
         ),
       ),
     );
