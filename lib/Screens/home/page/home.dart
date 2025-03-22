@@ -9,23 +9,19 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  // Track selected index for BottomNavigationBar
   int _selectedIndex = 0;
 
-  // Handle tab switch
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
     });
   }
 
-  // Pages for each tab
   static const List<Widget> _pages = <Widget>[
-    // Home Page Content (Already implemented)
-    HomePageContent(),  // You can extract the body of Home screen into this widget
-    Text('Wishlist Page'),  // Placeholder for Wishlist
-    Text('Order Page'),  // Placeholder for Order
-    Text('Account Page'),  // Placeholder for Account
+    HomePageContent(),
+    Text('Wishlist Page', style: TextStyle(fontSize: 24, color: Colors.red)),
+    Text('Order Page', style: TextStyle(fontSize: 24, color: Colors.blue)),
+    Text('Account Page', style: TextStyle(fontSize: 24, color: Colors.green)),
   ];
 
   @override
@@ -52,10 +48,10 @@ class _HomeState extends State<Home> {
           ),
         ],
       ),
-      body: _pages[_selectedIndex],  // Display selected page content
+      body: _pages[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _selectedIndex,  // Current tab index
-        onTap: _onItemTapped,  // Handle tab change
+        currentIndex: _selectedIndex,
+        onTap: _onItemTapped,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
@@ -112,5 +108,34 @@ class HomePageContent extends StatelessWidget {
               ),
               itemCount: 2,
               itemBuilder: (context, index) {
-                List<Map<String, String>> products = [
-                  {"name": "TMA-2 HD Wireless", "image": "headphones
+                return Container(
+                  decoration: BoxDecoration(
+                    color: Colors.blueAccent,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Column(
+                    children: [
+                      Image.asset(
+                        "path/to/image1.jpg",
+                        height: 100,
+                        width: double.infinity,
+                        fit: BoxFit.cover,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          "TMA-2 HD Wireless",
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
